@@ -23,7 +23,7 @@ void RobotControl::turnRight(){
 	digitalWrite(RIGHT_HIGH,LOW);
 	digitalWrite(RIGHT_LOW,LOW);
 	Serial.println("Taking a right turn");
-	delay(3000);
+	delay(2500);
 	stop();
 }
 
@@ -33,7 +33,7 @@ void RobotControl::turnLeft(){
 	digitalWrite(RIGHT_HIGH,HIGH);
 	digitalWrite(RIGHT_LOW,LOW);
 	Serial.println("Taking a left turn");
-	delay(3000);
+	delay(2500);
 	stop();
 }
 
@@ -61,13 +61,13 @@ void RobotControl::moveForward(){
 
 void RobotControl::initialTraversalRight(){
 	turnRight();
-	float startOfTraversalRecordedDistance = sensorValueCalculation(FRONT_TRIGGER,FRONT_ECHO);
+	float startOfTraversalRecordedDistance = abs(sensorValueCalculation(FRONT_TRIGGER,FRONT_ECHO));
 	delay(3000);
 	while(sensorValueCalculation(LEFT_TRIGGER,LEFT_ECHO) < 40 || sensorValueCalculation(LEFT_TRIGGER,LEFT_ECHO) > 3000){
 		advance();
 	}
 	float endOfTraversalRecorderDistance = sensorValueCalculation(FRONT_TRIGGER,FRONT_ECHO);
-	initialTraversedDistance = startOfTraversalRecordedDistance - endOfTraversalRecorderDistance;
+	initialTraversedDistance = abs(startOfTraversalRecordedDistance - endOfTraversalRecorderDistance);
 	Serial.println("Initially traversed distance");
 	Serial.println(initialTraversedDistance);
 	advance();
@@ -91,11 +91,11 @@ void RobotControl::secondaryTraversalRight(){
 void RobotControl::finalTraversalRight(){
 	turnLeft();
 	stop();
-	float finalTraversalStartingDistance = sensorValueCalculation(FRONT_TRIGGER,FRONT_ECHO);
+	float finalTraversalStartingDistance = abs(sensorValueCalculation(FRONT_TRIGGER,FRONT_ECHO));
 	Serial.println(finalTraversalStartingDistance);
-	while((finalTraversalStartingDistance - sensorValueCalculation(FRONT_TRIGGER,FRONT_ECHO)) <= abs(initialTraversedDistance)){
+	while(abs(finalTraversalStartingDistance - sensorValueCalculation(FRONT_TRIGGER,FRONT_ECHO)) <= abs(initialTraversedDistance)){
 		Serial.println("Final distance is going coming");
-		Serial.println(finalTraversalStartingDistance - sensorValueCalculation(FRONT_TRIGGER,FRONT_ECHO));
+		Serial.println(abs(finalTraversalStartingDistance - sensorValueCalculation(FRONT_TRIGGER,FRONT_ECHO)));
 		advance();
 	}
 	Serial.println("Object is fully traversed");
@@ -107,13 +107,13 @@ void RobotControl::finalTraversalRight(){
 
 void RobotControl::initialTraversalLeft(){
 	turnLeft();
-	float startOfTraversalRecordedDistance = sensorValueCalculation(FRONT_TRIGGER,FRONT_ECHO);
+	float startOfTraversalRecordedDistance = abs(sensorValueCalculation(FRONT_TRIGGER,FRONT_ECHO));
 	delay(3000);
 	while(sensorValueCalculation(RIGHT_TRIGGER,RIGHT_ECHO) < 40 || sensorValueCalculation(RIGHT_TRIGGER,RIGHT_ECHO) > 3000){
 		advance();
 	}
 	float endOfTraversalRecorderDistance = sensorValueCalculation(FRONT_TRIGGER,FRONT_ECHO);
-	initialTraversedDistance = startOfTraversalRecordedDistance - endOfTraversalRecorderDistance;
+	initialTraversedDistance = abs(startOfTraversalRecordedDistance - endOfTraversalRecorderDistance);
 	Serial.println("Initially traversed distance");
 	Serial.println(initialTraversedDistance);
 	advance();
@@ -140,9 +140,9 @@ void RobotControl::finalTraversalLeft(){
 	stop();
 	float finalTraversalStartingDistance = sensorValueCalculation(FRONT_TRIGGER,FRONT_ECHO);
 	Serial.println(finalTraversalStartingDistance);
-	while((finalTraversalStartingDistance - sensorValueCalculation(FRONT_TRIGGER,FRONT_ECHO)) <= abs(initialTraversedDistance)){
+	while(abs(finalTraversalStartingDistance - sensorValueCalculation(FRONT_TRIGGER,FRONT_ECHO)) <= abs(initialTraversedDistance)){
 		Serial.println("Final distance is going coming");
-		Serial.println(finalTraversalStartingDistance - sensorValueCalculation(FRONT_TRIGGER,FRONT_ECHO));
+		Serial.println(abs(finalTraversalStartingDistance - sensorValueCalculation(FRONT_TRIGGER,FRONT_ECHO)));
 		advance();
 	}
 	Serial.println("Object fully traversed");
