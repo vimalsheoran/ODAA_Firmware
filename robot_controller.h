@@ -16,8 +16,7 @@
 class RobotControl{
 
 public:
-
-  bool isTraversing = false;
+	float initialTraversedDistance;
 	float sensorValueCalculation(int,int);
 	void proceed();
 	void advance();
@@ -28,7 +27,16 @@ public:
 	void turnLeft();
 	void stop();
 	void fallBack();
+	void moveForward();
+	void initialTraversalRight();
+	void initialTraversalLeft();
+	void secondaryTraversalRight();
+	void secondaryTraversalLeft();
+	void finalTraversalRight();
+	void finalTraversalLeft();
 	void SimpleTraversal();
 	bool goAhead = true;
 
 };
+
+extern RobotControl robo;
