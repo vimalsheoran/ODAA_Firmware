@@ -16,7 +16,7 @@
 class RobotControl{
 
 public:
-	float initialTraversedDistance;
+	float initialTraversalTime;
 	float sensorValueCalculation(int,int);
 	void proceed();
 	void advance();
@@ -28,10 +28,10 @@ public:
 	void stop();
 	void fallBack();
 	void moveForward();
-	void initialTraversalRight();
-	void initialTraversalLeft();
-	void secondaryTraversalRight();
-	void secondaryTraversalLeft();
+	void initialTraversalRight(int);
+	void initialTraversalLeft(int);
+	void secondaryTraversalRight(bool);
+	void secondaryTraversalLeft(bool);
 	void finalTraversalRight();
 	void finalTraversalLeft();
 	void SimpleTraversal();
